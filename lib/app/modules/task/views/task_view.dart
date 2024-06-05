@@ -4,6 +4,7 @@ import 'package:cron_client/app/routes/app_pages.dart';
 import '../controllers/task_controller.dart';
 import '../controllers/manage_task_controller.dart';
 import 'package:cron_client/app/modules/main/controllers/routine_controller.dart';
+import 'package:cron_client/app/modules/task/controllers/runtask_controller.dart';
 import 'package:cron_client/app/domain/usecases/get_tasks.dart';
 import 'package:cron_client/app/domain/usecases/save_tasks.dart';
 import 'package:cron_client/app/domain/usecases/get_routines.dart';
@@ -19,7 +20,8 @@ class TaskView extends GetView<ManageTaskController> {
   final controller = Get.put(ManageTaskController());
   final taskcontroller = Get.put(TaskController(Get.find<GetTasks>(), Get.find<SaveTasks>()));
   final routinecontroller = Get.put(RoutineController(Get.find<GetRoutines>(), Get.find<SaveRoutines>()));
-  
+  final runtaskcontroller = Get.put(RuntaskController());
+
   @override
   Widget build(BuildContext context) {
       return Scaffold(
@@ -46,7 +48,15 @@ class TaskView extends GetView<ManageTaskController> {
                 actions: <Widget>[
                   TextButton(onPressed: (){
                     controller.addItem(input);
-                    routinecontroller.routines[routine_id].tasks.add(TaskEntity(routinecontroller.routines[routine_id].tasks.length.toString(), input.toString(), false));
+                    routinecontroller.routines[routine_id].tasks.add(
+                      TaskEntity(
+                        routinecontroller.routines[routine_id].tasks.length.toString(),
+                        input.toString(),
+                        false,
+                        "🍀",
+                        Duration(seconds: 10)
+                      )
+                    );
                     routinecontroller.editRoutine(routinecontroller.routines[routine_id]);
                     /*
                     taskcontroller.addRoutine(
@@ -124,7 +134,7 @@ class TaskView extends GetView<ManageTaskController> {
                                   ),
                                 ),
                                 subtitle: Text(
-                                  "${routinecontroller.routines[routine_id].tasks[index].id}",
+                                  "${routinecontroller.routines[routine_id].tasks[index].duration}",
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 20,
@@ -150,6 +160,10 @@ class TaskView extends GetView<ManageTaskController> {
                   );
                 }),
               ),
+              /* TEst */
+              TextButton(
+                onPressed: () { Get.toNamed(Routes.DO_ROUTINE, arguments: routinecontroller.routines[routine_id]); },
+                child : Text("테스트 시작하기"))
             ],
           ), 
     );

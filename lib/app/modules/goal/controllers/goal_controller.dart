@@ -1,11 +1,16 @@
 import 'package:get/get.dart';
 import 'package:cron_client/app/routes/app_pages.dart';
+import 'package:cron_client/app/modules/notification/controllers/notification.dart';
 
 class GoalController extends GetxController {
   var name = ''.obs;
   var selectedCards = <int>{}.obs;
   
   void nextPage() {
+    final notification = FlutterLocalNotification();
+    notification.init();
+    Future.delayed(const Duration(seconds: 3),
+        notification.requestNotificationPermission());
     Get.toNamed(Routes.MAIN);
   }
   
