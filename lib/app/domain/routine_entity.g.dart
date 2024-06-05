@@ -21,13 +21,17 @@ class RoutineEntityAdapter extends TypeAdapter<RoutineEntity> {
       fields[1] as String,
       fields[2] as bool,
       (fields[3] as List).cast<TaskEntity>(),
+      fields[4] as String,
+      (fields[5] as List).cast<bool>(),
+      (fields[6] as List).cast<DateTime>(),
+      fields[7] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, RoutineEntity obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -35,7 +39,15 @@ class RoutineEntityAdapter extends TypeAdapter<RoutineEntity> {
       ..writeByte(2)
       ..write(obj.isCompleted)
       ..writeByte(3)
-      ..write(obj.tasks);
+      ..write(obj.tasks)
+      ..writeByte(4)
+      ..write(obj.icon)
+      ..writeByte(5)
+      ..write(obj.day)
+      ..writeByte(6)
+      ..write(obj.startTime)
+      ..writeByte(7)
+      ..write(obj.isAlarmOn);
   }
 
   @override
