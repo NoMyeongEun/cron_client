@@ -1,7 +1,6 @@
 import 'package:cron_client/app/domain/task_entity.dart';
 import 'package:hive/hive.dart';
 import 'package:cron_client/app/domain/task_list.dart';
-
 part 'routine_entity.g.dart';
 
 @HiveType(typeId: 1)
@@ -16,13 +15,4 @@ class RoutineEntity {
   final List<TaskEntity> tasks;
 
   RoutineEntity(this.id, this.title, this.isCompleted, this.tasks);
-
-  RoutineEntity copyWith({String? id, String? title, bool? isCompleted, List<TaskEntity>? tasks}) {
-    return RoutineEntity(
-      id ?? this.id,
-      title ?? this.title,
-      isCompleted ?? this.isCompleted,
-      tasks ?? this.tasks
-    );
-  }
 }

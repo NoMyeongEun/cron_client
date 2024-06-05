@@ -3,20 +3,26 @@ import 'package:get/get.dart';
 import 'package:cron_client/app/routes/app_pages.dart';
 import '../controllers/task_controller.dart';
 import '../controllers/manage_task_controller.dart';
+import 'package:cron_client/app/modules/main/controllers/routine_controller.dart';
 import 'package:cron_client/app/domain/usecases/get_tasks.dart';
 import 'package:cron_client/app/domain/usecases/save_tasks.dart';
+import 'package:cron_client/app/domain/usecases/get_routines.dart';
+import 'package:cron_client/app/domain/usecases/save_routines.dart';
 import 'package:cron_client/app/domain/task_entity.dart';
+import 'package:cron_client/app/domain/routine_entity.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
 class TaskView extends GetView<ManageTaskController> {
   TaskView({Key? key}) : super(key: key);
   String input = "";
+  final routine_id = Get.arguments;
   final controller = Get.put(ManageTaskController());
   final taskcontroller = Get.put(TaskController(Get.find<GetTasks>(), Get.find<SaveTasks>()));
-
+  final routinecontroller = Get.put(RoutineController(Get.find<GetRoutines>(), Get.find<SaveRoutines>()));
+  
   @override
   Widget build(BuildContext context) {
-        return Scaffold(
+      return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: const Text(
@@ -40,9 +46,13 @@ class TaskView extends GetView<ManageTaskController> {
                 actions: <Widget>[
                   TextButton(onPressed: (){
                     controller.addItem(input);
+                    routinecontroller.routines[routine_id].tasks.add(TaskEntity(routinecontroller.routines[routine_id].tasks.length.toString(), input.toString(), false));
+                    routinecontroller.editRoutine(routinecontroller.routines[routine_id]);
+                    /*
                     taskcontroller.addRoutine(
                       TaskEntity(taskcontroller.tasks.length.toString(), input.toString(), false)
                     );
+                    */
                     Navigator.of(context).pop();	// input 입력 후 창 닫히도록
                   },
                   child: Text("Add"))
@@ -83,7 +93,7 @@ class TaskView extends GetView<ManageTaskController> {
               Expanded(
                 child: Obx(() {
                   return ListView.builder(
-                    itemCount: taskcontroller.tasks.length,
+                    itemCount: routinecontroller.routines[routine_id].tasks.length,
                     itemBuilder: (context, index) {
                       return Container(
                         margin: const EdgeInsets.all(5),
@@ -105,7 +115,7 @@ class TaskView extends GetView<ManageTaskController> {
                                   ),
                                 ),
                                 title: Text(
-                                  "${taskcontroller.tasks[index].title}",
+                                  "${routinecontroller.routines[routine_id].tasks[index].title}",
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 20,
@@ -114,7 +124,7 @@ class TaskView extends GetView<ManageTaskController> {
                                   ),
                                 ),
                                 subtitle: Text(
-                                  "${taskcontroller.tasks[index].id}",
+                                  "${routinecontroller.routines[routine_id].tasks[index].id}",
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 20,

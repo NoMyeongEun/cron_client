@@ -128,7 +128,7 @@ class MainView extends GetView<MainController> {
                                     color: Colors.black,
                                   ),
                                   onPressed: () {
-                                    Get.toNamed(Routes.TASK);
+                                    Get.toNamed(Routes.TASK, arguments: index);
                                   },
                                 ),
                               ),

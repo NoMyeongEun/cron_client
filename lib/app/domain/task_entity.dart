@@ -13,11 +13,4 @@ class TaskEntity {
 
   TaskEntity(this.id, this.title, this.isCompleted);
 
-  TaskEntity copyWith({String? id, String? title, bool? isCompleted}) {
-    return TaskEntity(
-      id ?? this.id,
-      title ?? this.title,
-      isCompleted ?? this.isCompleted,
-    );
-  }
 }
