@@ -1,23 +1,42 @@
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:cron_client/app/domain/task_entity.dart';
+import 'package:cron_client/app/domain/usecases/get_tasks.dart';
+import 'package:cron_client/app/domain/usecases/save_tasks.dart';
 
 class TaskController extends GetxController {
-  //TODO: Implement TaskController
+  final GetTasks getTasks;
+  final SaveTasks saveTasks;
+  final textEditingController = TextEditingController();
 
-  int length = 1;
-  RxList<dynamic> todos = ["🛏️ 잠자리정리","💦 물 마시기", "💊 약/비타민 먹기","🛀 샤워하기", "🗓️ 오늘 일정 확인"].obs;
+  TaskController(this.getTasks, this.saveTasks);
+
+  final tasks = <TaskEntity>[].obs;
 
   @override
   void onInit() {
     super.onInit();
+    loadTasks();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  Future<void> loadTasks() async {
+    final result = await getTasks();
+    tasks.value = result;
+    update();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  void addRoutine(TaskEntity task) {
+    tasks.add(task);
+    saveTasks(tasks);
+    textEditingController.clear();
+    update();
+  }
+
+  void editTask(TaskEntity task) {
+    final index = tasks.indexWhere((element) => element.id == task.id);
+    tasks[index] = task;
+    saveTasks(tasks);
+    textEditingController.clear();
+    update();
   }
 }

@@ -10,7 +10,7 @@ class TaskLocalDataSource {
     return box.values.toList();
   }
 
-  Future<void> saveTodos(List<TaskEntity> tasks) async {
+  Future<void> saveTasks(List<TaskEntity> tasks) async {
     final box = await _tasksBox;
     for (final task in tasks) {
       await box.put(task.id, task);

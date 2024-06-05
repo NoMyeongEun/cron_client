@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
+import 'package:cron_client/app/routes/app_pages.dart';
 import '../controllers/task_controller.dart';
+import '../controllers/manage_task_controller.dart';
+import 'package:cron_client/app/domain/usecases/get_tasks.dart';
+import 'package:cron_client/app/domain/usecases/save_tasks.dart';
+import 'package:cron_client/app/domain/task_entity.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
-class TaskView extends GetView<TaskController> {
+class TaskView extends GetView<ManageTaskController> {
   TaskView({Key? key}) : super(key: key);
   String input = "";
-  
+  final controller = Get.put(ManageTaskController());
+  final taskcontroller = Get.put(TaskController(Get.find<GetTasks>(), Get.find<SaveTasks>()));
+
   @override
   Widget build(BuildContext context) {
         return Scaffold(
@@ -19,7 +25,7 @@ class TaskView extends GetView<TaskController> {
         ),
         centerTitle: true,
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton( // 오른쪽 아래 floating 버튼
         onPressed: () {
           showDialog(
             context: context,
@@ -33,6 +39,10 @@ class TaskView extends GetView<TaskController> {
                 ),
                 actions: <Widget>[
                   TextButton(onPressed: (){
+                    controller.addItem(input);
+                    taskcontroller.addRoutine(
+                      TaskEntity(taskcontroller.tasks.length.toString(), input.toString(), false)
+                    );
                     Navigator.of(context).pop();	// input 입력 후 창 닫히도록
                   },
                   child: Text("Add"))
@@ -45,37 +55,93 @@ class TaskView extends GetView<TaskController> {
           color: Colors.white,
         ),
       ),
-      body: ListView.builder(
-          itemCount: controller.todos.length,
-          itemBuilder: (BuildContext con, int index) {
-            return Container(
-              margin: const EdgeInsets.all(15),
-              padding: const EdgeInsets.all(15),
-              child: Column(
-                children: [
-                  GetX<TaskController>(
-                    builder: (_) => Container (
-                      height: 60,
-                      child : Card(
-                      elevation: 3,
-                      margin: EdgeInsets.only(left:4, right : 4, top: 2, bottom:2),
-                      shape: RoundedRectangleBorder(borderRadius:
-                      BorderRadius.circular(4)
-                      ),
-                      child : ListTile(
-                        title: Text(
-                          "${controller.todos()[index]}",
-                          style:  TextStyle(color: Colors.black, fontSize: 20, fontFamily: 'Noto Sans',fontWeight: FontWeight.w500),
+     body: Column(
+      children : [
+          Padding(
+            padding: EdgeInsets.only(top: 70.0, left: 20.0, bottom: 10.0),
+            child :
+              SizedBox(
+                    width: 500,
+                    height: 100,
+                    child: AnimatedTextKit(
+                      animatedTexts: [
+                        TypewriterAnimatedText(
+                          '명은님,\n오늘도 활기찬 하루 시작해봐요!',
+                          textStyle: const TextStyle(
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
                           ),
-                        
-                      ))
-                    )
+                          speed: const Duration(milliseconds: 100),
+                        ),
+                      ],
+                      isRepeatingAnimation: false,
+                      displayFullTextOnTap: true,
+                      stopPauseOnTap: false,
+                    ),
                   ),
-                ],
+            ),
+              Expanded(
+                child: Obx(() {
+                  return ListView.builder(
+                    itemCount: taskcontroller.tasks.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: const EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(5),
+                        child: GetX<TaskController>(
+                          builder: (_) => Container(
+                            height: 120,
+                            child: Card(
+                              elevation: 1,
+                              margin: EdgeInsets.all(1),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: ListTile(
+                                leading : Text(
+                                  "☀️",
+                                  style:TextStyle(
+                                    fontSize: 30
+                                  ),
+                                ),
+                                title: Text(
+                                  "${taskcontroller.tasks[index].title}",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  "${taskcontroller.tasks[index].id}",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                trailing: IconButton(
+                                  icon: Icon(
+                                    Icons.arrow_right_sharp,
+                                    color: Colors.black,
+                                  ),
+                                  onPressed: () {
+                                    Get.toNamed(Routes.TASK);
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }),
               ),
-            );
-          },
-        ),
+            ],
+          ), 
     );
   }
 }

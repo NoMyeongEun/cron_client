@@ -40,7 +40,9 @@ class MainView extends GetView<MainController> {
                 actions: <Widget>[
                   TextButton(onPressed: (){
                     controller.addItem(input);
-                    routinecontroller.addRoutine(RoutineEntity('0', input.toString(), false, []));
+                    routinecontroller.addRoutine(
+                      RoutineEntity(routinecontroller.routines.length.toString(), input.toString(), false, [] )
+                    );
                     Navigator.of(context).pop();	// input 입력 후 창 닫히도록
                   },
                   child: Text("Add"))
@@ -96,8 +98,23 @@ class MainView extends GetView<MainController> {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: ListTile(
+                                leading : Text(
+                                  "☀️",
+                                  style:TextStyle(
+                                    fontSize: 30
+                                  ),
+                                ),
                                 title: Text(
                                   "${routinecontroller.routines[index].title}",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  "${routinecontroller.routines[index].id}",
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 20,
