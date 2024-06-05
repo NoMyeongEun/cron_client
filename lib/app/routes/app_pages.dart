@@ -1,11 +1,17 @@
 import 'package:get/get.dart';
 
+import '../modules/gender/bindings/gender_binding.dart';
+import '../modules/gender/views/gender_view.dart';
+import '../modules/goal/bindings/goal_binding.dart';
+import '../modules/goal/views/goal_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/main/bindings/main_binding.dart';
 import '../modules/main/views/main_view.dart';
+import '../modules/password/bindings/password_binding.dart';
+import '../modules/password/views/password_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
 import '../modules/signup/views/signup_view.dart';
 import '../modules/task/bindings/task_binding.dart';
@@ -43,6 +49,21 @@ class AppPages {
       name: _Paths.LOGIN,
       page: () => LoginView(),
       binding: LoginBinding(),
+    ),
+    GetPage(
+      name: _Paths.GENDER,
+      page: () => GenderView(),
+      binding: GenderBinding(),
+    ),
+    GetPage(
+      name: _Paths.GOAL,
+      page: () => GoalView(),
+      binding: GoalBinding(),
+    ),
+    GetPage(
+      name: _Paths.PASSWORD,
+      page: () => PasswordView(),
+      binding: PasswordBinding(),
     ),
   ];
 }

@@ -8,6 +8,9 @@ abstract class Routes {
   static const MAIN = _Paths.MAIN;
   static const TASK = _Paths.TASK;
   static const LOGIN = _Paths.LOGIN;
+  static const GENDER = _Paths.GENDER;
+  static const GOAL = _Paths.GOAL;
+  static const PASSWORD = _Paths.PASSWORD;
 }
 
 abstract class _Paths {
@@ -17,4 +20,7 @@ abstract class _Paths {
   static const MAIN = '/main';
   static const TASK = '/task';
   static const LOGIN = '/login';
+  static const GENDER = '/gender';
+  static const GOAL = '/goal';
+  static const PASSWORD = '/password';
 }
