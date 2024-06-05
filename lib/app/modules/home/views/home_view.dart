@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 import 'package:cron_client/app/routes/app_pages.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -11,23 +12,32 @@ class HomeView extends GetView<HomeController> {
       backgroundColor: Colors.black,
       body: Column(
         children : [
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(left: 20.0),
             child : Column(
               children: [
                 SizedBox(height: 500),
                 SizedBox(
+                  height: 120,
                   width: 500,
-                  child: Text(
-                    '약간의 변화가\n만들어낼 큰 차이',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 50,
-                      fontFamily: 'Noto Sans',
-                      fontWeight: FontWeight.w700,
-                      height: 1,
-                      letterSpacing: -1,
-                      ),
+                  child: AnimatedTextKit(
+                      animatedTexts: [
+                        TyperAnimatedText(
+                          '약간의 변화가\n만들어낼 큰 차이',
+                          textStyle: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 50,
+                              fontFamily: 'Noto Sans',
+                              fontWeight: FontWeight.w700,
+                              height: 1,
+                              letterSpacing: -1,
+                        ),
+                          speed: const Duration(milliseconds: 100),
+                        ),
+                      ],
+                      isRepeatingAnimation: false,
+                      displayFullTextOnTap: true,
+                      stopPauseOnTap: false,
                     ),
                   ),
                 SizedBox(height: 8),
