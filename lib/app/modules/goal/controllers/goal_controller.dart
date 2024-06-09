@@ -1,12 +1,19 @@
 import 'package:get/get.dart';
 import 'package:cron_client/app/routes/app_pages.dart';
 import 'package:cron_client/app/modules/notification/controllers/notification.dart';
+import 'package:cron_client/app/modules/peoplestate_controller.dart';
+import 'package:cron_client/app/modules/signup/controllers/signup_controller.dart';
 
 class GoalController extends GetxController {
+  final peopleStatectroller = Get.put(PeopleStateController());
+  final signupcontroller = Get.put(SignupController());
   var name = ''.obs;
-  var selectedCards = <int>{}.obs;
+  var selectedCards = <int>[].obs;
   
   void nextPage() {
+    peopleStatectroller.goal.value = selectedCards.value.map((i) => i.toString()).toList();
+    signupcontroller.signIn();
+    
     final notification = FlutterLocalNotification();
     notification.init();
     Future.delayed(const Duration(seconds: 3),

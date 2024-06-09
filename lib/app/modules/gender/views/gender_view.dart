@@ -126,7 +126,7 @@ class GenderView extends GetView<GenderController> {
                             ),
                           ),
                           onChanged: (value) => gender_controller.name.value = value,
-                          obscureText: true
+                          
                         ),
                       ),
                 ],

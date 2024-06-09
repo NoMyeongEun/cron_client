@@ -46,7 +46,7 @@ class HomeView extends GetView<HomeController> {
                   child: Text(
                     'Change your life by slowly adding new healty habits and sticking to them.',
                     style: TextStyle(
-                      color: Color(0xFFD7D9FF),
+                      color: Color.fromARGB(204, 94, 255, 161),
                       fontSize: 20,
                       fontFamily: 'Noto Sans',
                       fontWeight: FontWeight.w500,

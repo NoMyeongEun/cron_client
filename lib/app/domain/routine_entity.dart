@@ -1,6 +1,5 @@
 import 'package:cron_client/app/domain/task_entity.dart';
 import 'package:hive/hive.dart';
-import 'package:cron_client/app/domain/task_list.dart';
 part 'routine_entity.g.dart';
 
 @HiveType(typeId: 1)

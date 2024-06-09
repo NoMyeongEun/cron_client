@@ -6,8 +6,8 @@ import 'package:cron_client/app/routes/app_pages.dart';
 
 class LoginView extends GetView<LoginController> {
   LoginView({Key? key}) : super(key: key);
-  TextEditingController pwd_controller = TextEditingController();
   final controller = Get.put(LoginController());
+  final email = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -146,41 +146,16 @@ class LoginView extends GetView<LoginController> {
                               letterSpacing: -1,
                             ),
                           ),
-                          controller: pwd_controller,
+                          controller: controller.pwd_controller,
                         ),
                       ),
                   const SizedBox(height: 1),
-                  const Text(
-                            '    처음이시라면 가입할 이메일을 적어주세요.',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 167, 167, 167),
-                              fontSize: 13,
-                              fontFamily: 'Noto Sans',
-                              fontWeight: FontWeight.w700,
-                              height: 3,
-                              letterSpacing: -0.40,
-                            ),
-                  ),
+                 
                 ],
               ),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(
-              top:  50,
-            ),
-            child : const Text(
-              '비밀번호를 잊으셨나요?',
-              style: TextStyle(
-                  color: Color.fromARGB(255, 155, 155, 155),
-                  fontSize: 15,
-                  fontFamily: 'Noto Sans',
-                  fontWeight: FontWeight.w400,
-                  height: 0,
-                  letterSpacing: -0.40,
-                ),
-            )
-          ),
+          SizedBox(height: 50),
           Container(
             width: 300,
             height: 52,
@@ -195,7 +170,7 @@ class LoginView extends GetView<LoginController> {
                 ),
               ),
               onPressed: () { 
-                Get.toNamed(Routes.MAIN);
+                controller.login(email);
               },
               child: Container(
               alignment: Alignment.center,

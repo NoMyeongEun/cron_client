@@ -39,4 +39,17 @@ class TaskController extends GetxController {
     textEditingController.clear();
     update();
   }
+
+  String formatDuration(Duration duration) {
+    int hours = duration.inHours;
+    int minutes = duration.inMinutes.remainder(60);
+    int seconds = duration.inSeconds.remainder(60);
+
+    // Use String's padLeft to add leading zeros if necessary
+    String formattedDuration = '${hours.toString().padLeft(2, '0')}시 '
+        '${minutes.toString().padLeft(2, '0')}분 '
+        '${seconds.toString().padLeft(2, '0')}초';
+
+    return formattedDuration;
+  }
 }

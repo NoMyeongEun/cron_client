@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/doRoutine/bindings/do_routine_binding.dart';
+import '../modules/doRoutine/views/do_routine_view.dart';
 import '../modules/gender/bindings/gender_binding.dart';
 import '../modules/gender/views/gender_view.dart';
 import '../modules/goal/bindings/goal_binding.dart';
@@ -64,6 +66,11 @@ class AppPages {
       name: _Paths.PASSWORD,
       page: () => PasswordView(),
       binding: PasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.DO_ROUTINE,
+      page: () => DoRoutineView(),
+      binding: DoRoutineBinding(),
     ),
   ];
 }

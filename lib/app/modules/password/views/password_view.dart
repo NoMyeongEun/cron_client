@@ -115,7 +115,7 @@ class PasswordView extends GetView<PasswordController> {
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(width: 1, color: Color.fromARGB(255, 94, 169, 97)),
                             ),
-                            hintText: '6자리 이상 입력해 주세요.',
+                            hintText: '설정하실 비밀번호를 입력해 주세요.',
                             hintStyle: TextStyle(
                               color: Color(0xFFCCCCCC),
                               fontSize: 15,

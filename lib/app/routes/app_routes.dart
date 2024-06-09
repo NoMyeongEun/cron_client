@@ -11,6 +11,7 @@ abstract class Routes {
   static const GENDER = _Paths.GENDER;
   static const GOAL = _Paths.GOAL;
   static const PASSWORD = _Paths.PASSWORD;
+  static const DO_ROUTINE = _Paths.DO_ROUTINE;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const GENDER = '/gender';
   static const GOAL = '/goal';
   static const PASSWORD = '/password';
+  static const DO_ROUTINE = '/do-routine';
 }

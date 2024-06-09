@@ -191,7 +191,7 @@ class SignupView extends GetView<SignupController> {
                 ),
               ),
               onPressed: () { 
-                controller.checkIfRegistered(email_controller.text);
+                controller.login(email_controller.text);
               },
               child: Container(
               alignment: Alignment.center,
